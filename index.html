@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deep Learning Quiz — Unit II</title>
+<style>
+*{box-sizing:border-box}
+:root{--pp:#f1f6fb;--gr:#d9e4ef;--cd:#fff;--ink:#10243e;--mu:#58708c;--ac:#e8590c;--as:#fde8da;--ok:#14804a;--bd:#c62f3a;--ln:#c4d3e3;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pp:#0d1b2e;--gr:#17304d;--cd:#12263d;--ink:#e6eef8;--mu:#93a9c2;--ac:#ff8a4c;--as:#3a2a22;--ok:#44c987;--bd:#ff7480;--ln:#2a4466}}
+:root[data-theme="dark"]{--pp:#0d1b2e;--gr:#17304d;--cd:#12263d;--ink:#e6eef8;--mu:#93a9c2;--ac:#ff8a4c;--as:#3a2a22;--ok:#44c987;--bd:#ff7480;--ln:#2a4466}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--pp) linear-gradient(var(--gr) 1px,transparent 1px) 0 0/24px 24px;background-image:linear-gradient(var(--gr) 1px,transparent 1px),linear-gradient(90deg,var(--gr) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:700px;margin:0 auto;padding:20px 16px 48px}
+[hidden]{display:none!important}
+.sheet{background:var(--cd);border:1.5px solid var(--ink);border-radius:8px;padding:26px}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;margin:0}
+h1{font-size:clamp(34px,8vw,52px);line-height:1.08;margin-bottom:14px}
+h2{font-size:22px;line-height:1.35;margin-bottom:18px}
+h3{font-size:22px;margin:28px 0 12px}
+.eb{color:var(--ac);font-weight:700;margin:0 0 10px}
+.sub{color:var(--mu);margin:0 0 22px;max-width:60ch}
+.stats{display:flex;border:1.5px solid var(--ln);border-radius:8px;margin:0 0 22px}
+.stats div{flex:1;padding:12px 8px;text-align:center;font-size:13px;color:var(--mu);border-left:1.5px solid var(--ln)}
+.stats div:first-child{border-left:0}
+.stats b{display:block;font:700 28px Georgia,serif;color:var(--ink)}
+.stats .g b{color:var(--ok)}.stats .b b{color:var(--bd)}
+label{display:block;font-size:14px;font-weight:600;margin:0 0 14px}
+input{display:block;width:100%;margin-top:6px;padding:12px 14px;font:inherit;color:var(--ink);background:var(--pp);border:1.5px solid var(--ln);border-radius:6px}
+input:focus{border-color:var(--ac)}
+:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.er{color:var(--bd);font-size:14px;min-height:22px;margin:0 0 8px}
+.btn{font:inherit;font-weight:700;padding:12px 22px;border:1.5px solid var(--ink);border-radius:6px;background:var(--ink);color:var(--cd);cursor:pointer}
+.btn.sec{background:var(--cd);color:var(--ink)}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn:disabled{opacity:.35;cursor:default}
+#go,#rt{width:100%}
+.top{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;margin:0 0 10px}
+.logo{font:700 20px Georgia,serif}
+.bar{height:5px;background:var(--ln);border-radius:5px;overflow:hidden;margin:0 0 16px}
+.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .25s}
+.qn{color:var(--mu);font-size:14px;font-weight:600;margin:0 0 6px}
+.opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--cd);border:1.5px solid var(--ln);border-radius:8px;padding:12px 14px;margin:0 0 10px;cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.opt span{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ln);font-weight:700;font-size:14px}
+.opt em{font-style:normal}
+.opt.sel{border-color:var(--ac);background:var(--as)}
+.opt.sel span{background:var(--ac);border-color:var(--ac);color:#fff}
+.nav{display:flex;gap:10px;justify-content:space-between;margin-top:6px}
+.pal{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+.pal button{width:34px;height:34px;border-radius:50%;font:600 13px system-ui,sans-serif;border:1.5px solid var(--ln);background:var(--cd);color:var(--mu);cursor:pointer}
+.pal .dn{background:var(--ink);border-color:var(--ink);color:var(--cd)}
+.pal .cur{border-color:var(--ac);box-shadow:0 0 0 3px var(--as)}
+.c{text-align:center}
+.ring{width:128px;height:128px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;background:conic-gradient(var(--ac) calc(var(--p)*1%),var(--ln) 0)}
+.ring b{width:100px;height:100px;border-radius:50%;background:var(--cd);display:grid;place-items:center;font:700 28px Georgia,serif}
+.c h2{margin-bottom:16px}
+.rq{background:var(--cd);border:1.5px solid var(--ln);border-left:6px solid var(--mu);border-radius:8px;padding:12px 14px;margin:0 0 10px;font-size:15px}
+.rq p{margin:0 0 4px}.rq .q{font-weight:700}
+.rq.ok{border-left-color:var(--ok)}.rq.bad{border-left-color:var(--bd)}
+.rq.ok .a{color:var(--ok)}.rq.bad .a{color:var(--bd)}
+.lnk{background:none;border:0;color:var(--mu);font:inherit;font-size:14px;text-decoration:underline;cursor:pointer;padding:6px 0}
+#ao{display:block;margin:10px auto 0}
+.tw{overflow-x:auto;margin-top:16px;background:var(--cd);border:1.5px solid var(--ink);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:14px;white-space:nowrap}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--ln)}
+th{background:var(--as)}
+@media(max-width:480px){.sheet{padding:18px}.nav .btn{padding:12px 14px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<section id="start" class="sheet">
+<p class="eb">Unit II: Deep Learning</p>
+<h1>Deep Learning MCQ Quiz</h1>
+<p class="sub">40 questions covering Feedforward Networks, CNN, LSTM, RNN, Backpropagation, Autoencoders, RBM, DBN, SOM &amp; more.</p>
+<div class="stats"><div><b>40</b>Questions</div><div><b>4</b>Options each</div><div><b>MCQ</b>Format</div></div>
+<label>Your Name<input id="nm" maxlength="60" autocomplete="name" placeholder="e.g. Aarav Sharma"></label>
+<label>Roll Number / ID<input id="rl" maxlength="30" placeholder="e.g. 21CS042"></label>
+<p id="er" class="er" role="alert"></p>
+<button class="btn" id="go">START QUIZ →</button>
+<button class="lnk" id="ao">Admin login</button>
+</section>
+
+<section id="quiz" hidden>
+<div class="top"><span class="logo">DL Quiz</span><span id="ct">1 / 40</span></div>
+<div class="bar"><i id="pb"></i></div>
+<div class="sheet">
+<p class="qn" id="qn"></p>
+<h2 id="qt"></h2>
+<div id="op"></div>
+<div class="nav"><button class="btn sec" id="pv">← Prev</button><button class="btn" id="nx">Next →</button><button class="btn ok" id="sb" hidden>Submit Quiz</button></div>
+</div>
+<div id="pal" class="pal"></div>
+</section>
+
+<section id="done" class="sheet c" hidden>
+<h2>Quiz submitted</h2>
+<p class="sub" style="margin:0 auto">Thank you. Your answers have been saved. Your instructor will share your result.</p>
+</section>
+
+<section id="adm" hidden>
+<div class="top"><span class="logo">DL Quiz Admin</span><button class="lnk" id="bk">← Back to quiz</button></div>
+<div class="sheet" id="al">
+<h2>Admin login</h2>
+<label>Username<input id="au" autocomplete="username"></label>
+<label>Password<input id="ap" type="password" autocomplete="current-password"></label>
+<p id="ae" class="er" role="alert"></p>
+<button class="btn" id="ab">Sign in</button>
+</div>
+<div id="ad" hidden>
+<div class="sheet">
+<div class="stats"><div><b id="sn">0</b>Submissions</div><div><b id="sa">–</b>Average</div><div><b id="sh">–</b>Highest</div></div>
+<input id="q" placeholder="Search by name or roll number" style="margin:0 0 12px">
+<div class="nav"><button class="btn sec" id="ex">Export CSV</button><button class="btn sec" id="lo">Log out</button></div>
+</div>
+<div class="tw"><table><thead><tr><th>Roll No.</th><th>Name</th><th>Score</th><th>Percent</th><th>Wrong</th><th>Skipped</th><th>Submitted</th><th></th></tr></thead><tbody id="tb"></tbody></table></div>
+</div>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id),
+E=(t,c,x)=>{const e=document.createElement(t);e.className=c||'';if(x)e.textContent=x;return e},
+pc=r=>r.done?Math.round(r.correct/r.total*100):0,
+API='https://script.google.com/macros/s/AKfycbwkdFH3ycTPm-Lj7TqgFiRLN_IjnQyjb42eNjJGyt8bHZZzJxjAKhrcw4bRWD8DyDAjLQ/exec',
+api=async(u,o={})=>{
+if(!/^https:\/\/script\.google(usercontent)?\.com\//.test(API))throw new Error('Not set up yet: paste your Apps Script Web app URL into index.html (const API).');
+const b=o.body||{};let p;
+if(u==='/api/start')p={action:'start',name:b.name,roll:b.roll};
+else if(u==='/api/submit')p={action:'submit',roll:b.roll,token:b.token,answers:b.answers.map((x,k)=>x<0?'':Q[k].o[x])};
+else if(u==='/api/admin/login')p={action:'login',username:b.username,password:b.password};
+else if(u==='/api/admin/results')p={action:'results',token:adm};
+else if(u==='/api/admin/logout')p={action:'logout',token:adm};
+else p={action:'reset',token:adm,id:decodeURIComponent(u.split('/').pop())};
+let d;
+try{const r=await fetch(API,{method:'POST',body:JSON.stringify(p)});d=await r.json()}
+catch(e){throw new Error('Cannot reach the quiz server. Check your internet connection and try again.')}
+if(d.error)throw new Error(d.error);
+if(p.action==='login')adm=d.token;
+return d};
+let adm='';
+let Q=[],A=[],i=0,w=0,nm='',rl='',tok='',R=[],tm=null;
+function show(id){['start','quiz','done','adm'].forEach(k=>$(k).hidden=k!==id);scrollTo(0,0)}
+function render(){
+const q=Q[i],n=Q.length;w=0;
+$('ct').textContent=`${i+1} / ${n}`;$('pb').style.width=(i+1)/n*100+'%';
+$('qn').textContent=`Question ${i+1} of ${n}`;$('qt').textContent=q.q;
+const op=$('op');op.replaceChildren();
+q.o.forEach((t,k)=>{const b=E('button','opt'+(A[i]===k?' sel':''));b.append(E('span','','ABCD'[k]),E('em','',t));b.onclick=()=>{A[i]=k;render()};op.append(b)});
+$('pv').disabled=i===0;$('nx').hidden=i===n-1;$('sb').hidden=i!==n-1;$('sb').textContent='Submit Quiz';
+const pl=$('pal');pl.replaceChildren();
+Q.forEach((_,k)=>{const b=E('button',(k===i?'cur ':'')+(A[k]>=0?'dn':''),k+1);b.setAttribute('aria-label','Go to question '+(k+1));b.onclick=()=>{i=k;render()};pl.append(b)})}
+async function fin(){
+const b=$('sb');b.disabled=true;b.textContent='Submitting…';
+try{await api('/api/submit',{method:'POST',body:{roll:rl,token:tok,answers:A}});show('done')}
+catch(e){b.disabled=false;b.textContent=e.message+' Tap to retry'}}
+$('go').onclick=async()=>{
+nm=$('nm').value.trim();rl=$('rl').value.trim();
+const er=m=>{$('er').textContent=m},g=$('go');
+if(!nm||!rl)return er('Enter your name and roll number to start the quiz.');
+g.disabled=true;er('Starting…');
+try{const d=await api('/api/start',{method:'POST',body:{name:nm,roll:rl}});Q=d.questions;tok=d.token;A=Q.map(()=>-1);i=0;er('');show('quiz');render()}
+catch(e){er(e.message)}
+g.disabled=false};
+$('pv').onclick=()=>{i--;render()};
+$('nx').onclick=()=>{i++;render()};
+$('sb').onclick=()=>{const u=A.filter(a=>a<0).length;if(u&&!w){w=1;$('sb').textContent=u+' unanswered. Submit anyway?';return}w=1;fin()};
+$('ao').onclick=()=>show('adm');
+$('bk').onclick=()=>show('start');
+async function load(){R=(await api('/api/admin/results')).results;table()}
+$('ab').onclick=async()=>{
+const e=m=>{$('ae').textContent=m};
+try{await api('/api/admin/login',{method:'POST',body:{username:$('au').value.trim(),password:$('ap').value}});
+e('');$('ap').value='';$('al').hidden=true;$('ad').hidden=false;await load();
+clearInterval(tm);tm=setInterval(()=>load().catch(()=>{}),15000)}
+catch(x){e(x.message)}};
+$('q').oninput=()=>table();
+$('lo').onclick=async()=>{clearInterval(tm);try{await api('/api/admin/logout',{method:'POST',body:{}})}catch(e){}R=[];$('ad').hidden=true;$('al').hidden=false;show('start')};
+$('ex').onclick=()=>{
+const q=v=>{v=String(v);if(/^[=+\-@\t\r]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};
+const L=[['Roll No.','Name','Correct','Wrong','Skipped','Total','Percent','Submitted']].concat(R.filter(r=>r.done).map(r=>[r.roll,r.name,r.correct,r.wrong,r.skipped,r.total,pc(r)+'%',new Date(r.at).toISOString()]));
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+L.map(r=>r.map(q).join(',')).join('\r\n')],{type:'text/csv'}));
+a.download='dl-quiz-results.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+function table(){
+const f=$('q').value.trim().toLowerCase(),L=R.filter(r=>(r.name+' '+r.roll).toLowerCase().includes(f)),D=R.filter(r=>r.done),tb=$('tb');
+tb.replaceChildren();
+$('sn').textContent=D.length;
+$('sa').textContent=D.length?Math.round(D.reduce((a,r)=>a+pc(r),0)/D.length)+'%':'–';
+$('sh').textContent=D.length?Math.max(...D.map(pc))+'%':'–';
+if(!L.length){const t=E('tr'),d=E('td','',R.length?'No match.':'No submissions yet.');d.colSpan=8;t.append(d);tb.append(t)}
+L.forEach(r=>{const t=E('tr');
+[r.roll,r.name,r.done?`${r.correct}/${r.total}`:'In progress',r.done?pc(r)+'%':'–',r.done?r.wrong:'–',r.done?r.skipped:'–',new Date(r.at).toLocaleString()].forEach(v=>t.append(E('td','',String(v))));
+const b=E('button','lnk','Reset');let a=0;
+b.onclick=async()=>{if(!a){a=1;b.textContent='Confirm reset?';return}try{await api('/api/admin/attempts/'+encodeURIComponent(r.id),{method:'DELETE'});await load()}catch(e){b.textContent='Failed'}};
+const d=E('td');d.append(b);t.append(d);tb.append(t)})}
+</script>
+</body>
+</html>
