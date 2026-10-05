@@ -123,7 +123,7 @@ th{background:var(--as)}
 const $=id=>document.getElementById(id),
 E=(t,c,x)=>{const e=document.createElement(t);e.className=c||'';if(x)e.textContent=x;return e},
 pc=r=>r.done?Math.round(r.correct/r.total*100):0,
-API='https://script.google.com/macros/s/AKfycbwkdFH3ycTPm-Lj7TqgFiRLN_IjnQyjb42eNjJGyt8bHZZzJxjAKhrcw4bRWD8DyDAjLQ/exec',
+API='https://script.google.com/macros/s/AKfycbxx4651UgkjZCZSCNpcJqdLbrjDXiFv77UqyQzRInzn4S_DoaI6lFb69x1VBf1vp1Xf/exec',
 api=async(u,o={})=>{
 if(!/^https:\/\/script\.google(usercontent)?\.com\//.test(API))throw new Error('Not set up yet: paste your Apps Script Web app URL into index.html (const API).');
 const b=o.body||{};let p;
